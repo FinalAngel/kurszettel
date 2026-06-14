@@ -614,7 +614,7 @@ def run_demo(cfg):
     gen_weekly(cfg, issues, dt)
     gen_monthly(cfg, issues, dt)
     print(f"\n✓ Demo built — {len(issues)} zettel. Open: site_demo/index.html")
-    print("  (synthetic prices for layout/mechanics; IPO radar is live data)")
+    print("  (synthetic data for layout/mechanics; live data when run online)")
 
 
 def main():

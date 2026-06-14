@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Generated output (the site is built locally or in CI, never committed)
+/site/
+/site_demo/
+
+# Runtime data: snapshots, logs, backups, lockfile
+/data/
+
+# Self-tuned parameters (machine-specific, written by improve.py)
+/weights.json
+
+# Local Claude Code settings
+.claude/settings.local.json

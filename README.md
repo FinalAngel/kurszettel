@@ -1,47 +1,80 @@
-# Kurszettel
+<div align="center">
 
-*The quote sheet, reimagined.* A daily / weekly / monthly reading of the tech
-market and your portfolio — what to **buy, keep and sell** — with a dark,
-zed-inspired landing and clean archival zettel. (Formerly "Ledger".)
+# 📈 Kurszettel
 
-Ledger pulls public market data every morning, scores every name on a
-transparent, rules-based system, and renders a minimalist static zettel. Zettel
-are numbered and archived, so you build up a history you can read back.
+**The quote sheet, reimagined.**
+A daily / weekly / monthly reading of the tech market and your portfolio —
+what to **buy, keep, and sell** — rendered as a self-contained static site.
 
-Three cadences, matching how you asked to use it:
+[![CI](https://github.com/FinalAngel/kurszettel/actions/workflows/ci.yml/badge.svg)](https://github.com/FinalAngel/kurszettel/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
+[![Dependencies](https://img.shields.io/badge/dependencies-none-success.svg)](#)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-| Command | What it answers |
-|---|---|
-| `python3 generate.py daily`   | **What's going on today** — movers, breadth, the full ranked book, signal shifts vs. yesterday, fresh headlines. |
-| `python3 generate.py weekly`  | **What's going on this week** — conviction gains/drops, weekly leaders & laggards, where the book stands. |
-| `python3 generate.py monthly` | **What to invest in** — the *conviction list*, synthesised from the past ~4 weeks of daily readings. |
+[Live demo](https://finalangel.github.io/kurszettel/) ·
+[Features](#features) · [Quickstart](#quickstart) · [How it works](#how-it-works)
 
-`python3 generate.py build` just rebuilds `site/index.html` from existing zettel.
+</div>
 
-Every run also kicks off a **self-improvement pass** in the background (see below).
+> **Not investment advice.** Kurszettel is a mechanical, rules-based reading of
+> public market data for personal information only. Signals can be wrong; do
+> your own research; capital is at risk.
 
-## Run it
+Inspired by the archival aesthetic of
+[Ephemeris](https://vadim.sikora.name/ephemeris/) and the look of
+[zed.dev](https://zed.dev) — built with **standard-library Python only**. No
+dependencies, no API keys, no database.
 
-No dependencies, no API keys — standard-library Python 3.9+ only.
+## Features
+
+- 📊 **Composite signal** — a transparent 0–100 score per stock from trend
+  (SMA 50/200), momentum (RSI/MACD), analyst consensus, and 52-week position →
+  `BUY · ACCUMULATE · HOLD · REDUCE · SELL`.
+- 💼 **Portfolio-aware** — give it your holdings and it tells you what to
+  **keep, sell, or buy**, with P&L, concentration X-ray, per-position risk, and
+  a monthly budget plan rounded to whole shares.
+- 🌤️ **Market context** — every page opens with a `Risk-on / Neutral / Risk-off`
+  read from indices, the VIX, the 10-year yield and sector ETFs.
+- 🆕 **IPO radar** — upcoming and just-listed names from Nasdaq's calendar.
+- 🧠 **Self-improving** — each run back-tests its own past calls and tunes the
+  scoring weights, keeping a change only if it beats the old one *and* the tests
+  stay green. Fully reversible.
+- 🎛️ **Zero-dep** — stdlib Python; charts are inline SVG. Output is a static
+  site you can host anywhere.
+
+## Quickstart
 
 ```bash
-python3 generate.py daily
-open site/index.html       # macOS; or serve the site/ folder
+git clone https://github.com/FinalAngel/kurszettel.git
+cd kurszettel
+python3 generate.py demo        # offline, synthetic — no network needed
+open site_demo/index.html       # macOS (or open it however you like)
 ```
 
-The first run writes one snapshot. Weekly/monthly zettel get richer as
-snapshots accumulate (they read back `data/snapshots/*.json` to measure how
-each name's signal is evolving). Run `daily` every trading day and the weekly
-and monthly syntheses become meaningful within a week / month.
+For real data (Yahoo Finance + Nasdaq, key-less):
 
-## Your portfolio — keep · sell · buy
+```bash
+python3 generate.py daily        # or: weekly · monthly
+open site/index.html
+```
 
-Ledger is **portfolio-aware**. Tell it what you hold and it marries each position
-to the same signal engine, then tells you clearly what to **keep, sell, or buy**.
+## How it works
 
-Set it in `config.json → portfolio`:
+Three readings, each with a different job:
 
-```json
+| Command | Reading | Answers |
+|---|---|---|
+| `generate.py daily`   | **The Tape**       | What's moving today — your holdings, breadth, the ranked book. |
+| `generate.py weekly`  | **The Review**     | Your standings + the keep/sell/buy shortlist, to retain. |
+| `generate.py monthly` | **The Allocation** | The decision + where this month's budget goes. |
+
+Each run stores a snapshot under `data/`, so weekly and monthly editions
+("zettel") synthesise how signals evolve over time.
+
+### Your portfolio
+
+```jsonc
+// config.json
 "portfolio": {
   "base_currency": "CHF",
   "monthly_budget": 500,
@@ -52,192 +85,50 @@ Set it in `config.json → portfolio`:
 }
 ```
 
-`avg_cost` is in the stock's trading currency; Ledger fetches FX and reports
-everything in your `base_currency`. Each zettel then carries:
+`avg_cost` is in the stock's trading currency; FX is fetched and everything is
+reported in your `base_currency`. Edit `watchlist`, `benchmarks` and `ipo` in
+the same file.
 
-- **Where you stand** — every holding with live price, P&L, portfolio weight,
-  annualised volatility, max drawdown, and a per-position verdict, plus a
-  **concentration X-ray** (effective number of holdings, top weight, currency
-  exposure, with a warning if any one name exceeds ~35%).
-- **The decision board** — three columns: **Keep**, **Sell / Trim**, **Buy**
-  (your held winners worth adding to, marked *add*, plus new ideas from the
-  watchlist you don't own yet, marked *new*).
-- **The monthly plan** *(monthly only)* — your `monthly_budget` (e.g. CHF 500)
-  conviction-weighted across the strongest buy signals and **rounded to whole
-  shares your budget can actually buy**, with any uninvested cash carried forward.
+### It tunes itself
 
-The three cadences are deliberately different in job:
+On every run, `improve.py` (background, time-boxed) back-tests the scoring
+weights against realised forward returns and adopts a better set **only if**
+`python3 tests.py` still passes — backing up and rolling back otherwise. Off via
+`config.json → self_improve.enabled: false`.
 
-- **Daily — "The Tape"**: what's happening. Leads with *your holdings today*
-  (what moved in your book), market context, signal shifts, market movers, news.
-- **Weekly — "The Review"**: a reminder to retain the picture. Full standings +
-  decision board + what changed (conviction shifts, upgrades & downgrades).
-- **Monthly — "The Allocation"**: where you act. Standings + decision board +
-  the budget plan + the conviction idea-pool.
+## Run on a schedule (local)
 
-Ideas adapted from open-source tools (PyPortfolioOpt discrete allocation,
-Ghostfolio's concentration X-ray, QuantStats risk metrics, Stockopedia-style
-ranking): inverse-volatility and conviction weighting, whole-share rounding,
-HHI/effective-N concentration, and annualised vol / max-drawdown per holding.
-
-## Market context & IPO radar
-
-Every zettel opens with a **Market context** read before the stock-picking — the
-S&P 500, Nasdaq, the VIX ("fear"), the 10-year yield and the tech-sector ETFs
-(XLK / SMH / IGV), each with its trend vs. the 200-day line, condensed into a
-one-line **Risk-on / Neutral / Risk-off** regime (`lib/trends.py`). It answers
-"what's the weather?" before "what do I buy?".
-
-Daily and monthly zettel also carry an **IPO radar** — *pricing soon* and *just
-listed* names from Nasdaq's public IPO calendar, filtered by deal size and
-sorted biggest-first, so upcoming listings are on your radar before they trade.
-Configure both in `config.json` (`benchmarks`, `ipo.min_deal_usd`,
-`ipo.months_ahead`, `ipo.max_show`). Once a new listing has a few days of price
-history you can drop its ticker into `watchlist` to have it scored like any
-other name.
-
-## How the score works
-
-Each name gets a **0–100 score** blended from four transparent lenses, and a
-verdict band — **BUY ≥72 · ACCUMULATE ≥58 · HOLD ≥45 · REDUCE ≥32 · SELL**:
-
-- **Trend (30%)** — price vs. its 50- & 200-day moving averages; golden/death cross.
-- **Momentum (30%)** — RSI(14), MACD histogram, 1-month return.
-- **Analyst (25%)** — Wall-Street consensus rating + upside to the mean price target.
-- **Position (15%)** — where price sits in its 52-week range (room to run vs. extended).
-
-Every input that drives the score is printed next to each name, so nothing is a
-black box. The `trend / momentum / analyst / position` chips under each row are
-the per-lens sub-scores (0–100).
-
-## It improves itself on every run
-
-Whenever a command runs in this repo, Ledger launches `improve.py` in the
-background and spends a time budget (default **5 minutes**, `config.json →
-self_improve.seconds`) trying to get *measurably better* — without ever
-delaying your digest and without ever being able to break itself. The full log
-is `data/improvements.log`.
-
-It does three things, in order, each strictly gated:
-
-1. **Self-heal.** Runs the test suite. If it's red (a bad hand-edit, a previous
-   bad tune), it tries to restore a known-good state before doing anything else.
-
-2. **Tune itself against reality.** Because every daily snapshot stores each
-   name's per-lens sub-scores *and* its price, the engine can re-score all of
-   history under any candidate set of lens weights and ask: **did the names we
-   scored highest actually outperform the ones we scored lowest?** (the average
-   top-third-minus-bottom-third forward-return spread — see `lib/backtest.py`).
-   It searches thousands of weight combinations to maximise that spread and
-   writes the winner to `weights.json` — **but only if** the gain is material
-   *and* `python3 tests.py` still passes. Otherwise it reverts. Every adopted
-   change is stamped with before/after numbers in `weights.json` and the log.
-
-   This is the engine that makes it "better at each run": with little history it
-   reports *insufficient data* and changes nothing; as daily snapshots
-   accumulate, the backtest gets stronger and the weights converge toward
-   whatever has actually been predictive in **your** universe.
-
-3. **(Optional) LLM code pass.** If you opt in *twice* — `config.json →
-   self_improve.llm_code_improve: true` **and** environment `LEDGER_ALLOW_LLM=1`
-   — and the `claude` CLI is installed, it lets an agent make one small code
-   improvement, **reverted automatically unless the tests stay green**. Off by
-   default, because autonomous self-editing on every run carries cost and risk.
-
-**Safety model:** every change is backed up to `data/backups/<timestamp>/`
-first and rolled back on any failure; the test suite is the gate for *all*
-changes; a lockfile (`data/.improve.lock`) prevents overlapping runs; and an
-`LEDGER_NO_IMPROVE=1` recursion guard stops the improver from improving itself.
-Tuning only ever touches `weights.json` — your code and signals logic are
-untouched unless you enable the optional LLM pass. Disable the whole thing with
-`self_improve.enabled: false`, or per-invocation with `LEDGER_NO_IMPROVE=1`.
-
-There's also a wrapper so *any* command triggers it, not just `generate.py`:
+Run locally, not in CI — datacenter IPs get rate-limited and your holdings stay
+private. macOS `launchd` jobs generate each zettel and open it for you:
 
 ```bash
-./ledger daily              # generate, then self-improve
-./ledger python3 tests.py   # run anything; still self-improves afterward
-./ledger                    # just run a self-improvement pass now
+bash bin/install-launchd.sh      # daily 09:00 · weekly Mon · monthly 1st
+bin/uninstall-launchd.sh         # remove
 ```
 
-## Data sources
+## Deploy (GitHub Pages)
 
-All key-less and free:
+`.github/workflows/pages.yml` builds the **offline demo** (synthetic data, no
+holdings) and publishes it to Pages on every push to `main`. Enable it under
+**Settings → Pages → Source: GitHub Actions**. Your real, private data stays on
+your machine.
 
-- **Yahoo Finance** — prices, 1-year history, analyst consensus & price targets,
-  plus the benchmark indices / VIX / yield / sector ETFs for market context.
-- **Yahoo headline RSS** — recent company news for the day's biggest movers
-  (aggregating Reuters / CNBC / MarketWatch and others).
-- **Nasdaq IPO calendar** — upcoming and recently-priced IPOs (key-less).
-
-To add a premium provider later (Finnhub, Financial Modeling Prep, Alpha
-Vantage…), add a fetch method in `lib/sources.py` and merge its fields into the
-record built in `generate.py`. The scoring layer is provider-agnostic.
-
-## Configure
-
-Edit `config.json`:
-
-- `watchlist` — the tickers (use Yahoo symbols, e.g. `ASML.AS`, `LOGN.SW`).
-  Tech-focused US + Europe + Switzerland by default.
-- `title`, `tagline`, `schedule_note`, `sources`, `base_currency`.
-
-## Automate (recommended: local launchd on your Mac)
-
-Run it locally — not in CI. Yahoo rate-limits datacenter IPs hard (GitHub
-Actions / cloud agents get banned), your home IP is the reliable data path, and
-your holdings stay private. One command installs scheduled jobs that generate
-each zettel and open it in your browser:
+## Develop
 
 ```bash
-bash bin/install-launchd.sh      # installs the three jobs
-bin/uninstall-launchd.sh         # remove them
+python3 tests.py                 # fast, network-free test suite (the CI gate)
 ```
 
-Schedule (local time): **daily 09:00 Mon–Fri · weekly Monday 09:10 · monthly 1st
-09:20**. Unlike cron, launchd runs a missed job when the Mac next wakes, so a
-closed lid at 09:00 won't skip your digest. Edit the times in
-`bin/install-launchd.sh` and re-run. Test one immediately:
+CI (`.github/workflows/ci.yml`) runs the suite on Python 3.9–3.12.
 
-```bash
-launchctl kickstart -k gui/$(id -u)/ch.devguard.ledger.daily   # or:
-bin/ledger-run.sh daily          # run + open now
+```text
+generate.py        CLI: daily | weekly | monthly | demo | build
+lib/               sources · indicators · signals · portfolio · trends · render · backtest
+improve.py         self-improvement loop      tests.py   the test gate
+bin/               launchd install + run wrapper
+config.json        watchlist · portfolio · benchmarks · settings
 ```
 
-Logs land in `data/launchd.*.log`. To read it on your phone too, have the job
-push only the rendered `site/` to a (private) GitHub Pages repo — keep
-`config.json`/holdings out of it. (A plain `crontab` works as well, but launchd
-handles sleep/wake and is the macOS-native choice.)
+## License
 
-## Layout
-
-```
-config.json            watchlist + settings (incl. self_improve)
-ledger                 wrapper: run any command, then self-improve
-generate.py            CLI: daily | weekly | monthly | build
-improve.py             self-improvement loop (tune + self-heal + optional LLM)
-tests.py               the gate — every self-change must keep this green
-lib/sources.py         Yahoo data access (stdlib only)
-lib/indicators.py      SMA, RSI, MACD, returns, 52w position
-lib/signals.py         composite score -> verdict (+ tunable weights.json)
-lib/portfolio.py       holdings analysis, keep/sell/buy, allocation, X-ray
-lib/trends.py          market-context regime + IPO filtering
-lib/demosource.py      offline synthetic data for `generate.py demo`
-lib/backtest.py        scores-vs-realised-returns objective for tuning
-lib/render.py          HTML rendering (Fraunces + Inter)
-assets/style.css       the look
-weights.json           tuned parameters (written by improve.py; absent = defaults)
-data/snapshots/        one JSON per daily run (history the backtest reads)
-data/improvements.log  what the self-improvement loop did, each run
-data/backups/          pre-change backups for rollback
-data/issues.json       the archive index
-site/                  the published static site (open index.html)
-```
-
-## Important — not advice
-
-Ledger is a **mechanical, rules-based reading of public data for personal
-information only**. It is **not investment advice**, not a recommendation, and
-not a solicitation to buy or sell any security. Signals can be wrong and past
-behaviour does not predict returns. Do your own research and consider your own
-situation — **capital is at risk.**
+[MIT](LICENSE) © 2026 Angelo Dini. Not investment advice — see the disclaimer above.

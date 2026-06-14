@@ -9,6 +9,7 @@ Everything here is SYNTHETIC and clearly labelled in the output — it exists to
 demonstrate layout and mechanics, not to inform any real decision.
 """
 
+import os
 import time
 import zlib
 import random
@@ -131,13 +132,15 @@ class SyntheticSource:
 
     # -- ipos (real if reachable, else synthetic) ------------------------
     def ipo_calendar(self, months):
-        try:
-            from lib.sources import Yahoo
-            data = Yahoo(pause=0.3).ipo_calendar(months)
-            if data["upcoming"] or data["priced"]:
-                return data
-        except Exception:
-            pass
+        # stay fully offline in CI / when asked, so Pages builds are fast
+        if not (os.environ.get("CI") or os.environ.get("KURSZETTEL_OFFLINE")):
+            try:
+                from lib.sources import Yahoo
+                data = Yahoo(pause=0.3).ipo_calendar(months)
+                if data["upcoming"] or data["priced"]:
+                    return data
+            except Exception:
+                pass
         demo = [
             ("ACME", "Acme Robotics, Inc.", "NASDAQ Global Select",
              "expectedPriceDate", "6/20/2026", "18.00-20.00", "$480,000,000"),
