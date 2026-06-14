@@ -1,0 +1,87 @@
+{
+  "title": "Ledger",
+  "tagline": "A daily reading of the tech market — what is moving, what is shifting, and what is worth owning.",
+  "schedule_note": "Zürich · daily 09:00 · weekly Mon · monthly 1st",
+  "base_currency": "CHF",
+  "watchlist": [
+    { "symbol": "AAPL",    "name": "Apple",              "region": "US" },
+    { "symbol": "MSFT",    "name": "Microsoft",          "region": "US" },
+    { "symbol": "NVDA",    "name": "NVIDIA",             "region": "US" },
+    { "symbol": "GOOGL",   "name": "Alphabet",           "region": "US" },
+    { "symbol": "AMZN",    "name": "Amazon",             "region": "US" },
+    { "symbol": "META",    "name": "Meta Platforms",     "region": "US" },
+    { "symbol": "AVGO",    "name": "Broadcom",           "region": "US" },
+    { "symbol": "AMD",     "name": "AMD",                "region": "US" },
+    { "symbol": "TSLA",    "name": "Tesla",              "region": "US" },
+    { "symbol": "CRM",     "name": "Salesforce",         "region": "US" },
+    { "symbol": "ORCL",    "name": "Oracle",             "region": "US" },
+    { "symbol": "ADBE",    "name": "Adobe",              "region": "US" },
+    { "symbol": "NFLX",    "name": "Netflix",            "region": "US" },
+    { "symbol": "QCOM",    "name": "Qualcomm",           "region": "US" },
+    { "symbol": "MU",      "name": "Micron",             "region": "US" },
+    { "symbol": "PLTR",    "name": "Palantir",           "region": "US" },
+    { "symbol": "NOW",     "name": "ServiceNow",         "region": "US" },
+    { "symbol": "PANW",    "name": "Palo Alto Networks", "region": "US" },
+    { "symbol": "SNOW",    "name": "Snowflake",          "region": "US" },
+    { "symbol": "ARM",     "name": "Arm Holdings",       "region": "US" },
+    { "symbol": "TSM",     "name": "TSMC (ADR)",         "region": "US" },
+    { "symbol": "ASML",    "name": "ASML (ADR)",         "region": "US" },
+    { "symbol": "SAP",     "name": "SAP (ADR)",          "region": "US" },
+    { "symbol": "SPOT",    "name": "Spotify",            "region": "US" },
+    { "symbol": "ASML.AS", "name": "ASML",               "region": "EU" },
+    { "symbol": "ADYEN.AS","name": "Adyen",              "region": "EU" },
+    { "symbol": "SAP.DE",  "name": "SAP",                "region": "EU" },
+    { "symbol": "IFX.DE",  "name": "Infineon",           "region": "EU" },
+    { "symbol": "STMPA.PA","name": "STMicroelectronics", "region": "EU" },
+    { "symbol": "CAP.PA",  "name": "Capgemini",          "region": "EU" },
+    { "symbol": "DSY.PA",  "name": "Dassault Systèmes", "region": "EU" },
+    { "symbol": "NOKIA.HE","name": "Nokia",              "region": "EU" },
+    { "symbol": "ERIC-B.ST","name": "Ericsson",          "region": "EU" },
+    { "symbol": "LOGN.SW", "name": "Logitech",           "region": "CH" },
+    { "symbol": "TEMN.SW", "name": "Temenos",            "region": "CH" },
+    { "symbol": "VACN.SW", "name": "VAT Group",          "region": "CH" },
+    { "symbol": "AMS.SW",  "name": "ams-OSRAM",          "region": "CH" },
+    { "symbol": "COTN.SW", "name": "Comet Holding",      "region": "CH" }
+  ],
+  "portfolio": {
+    "base_currency": "CHF",
+    "monthly_budget": 500,
+    "_note": "SAMPLE holdings — replace with your real positions (symbol uses Yahoo tickers; avg_cost is in the stock's trading currency).",
+    "holdings": [
+      { "symbol": "NVDA",    "shares": 20, "avg_cost": 95.0 },
+      { "symbol": "AAPL",    "shares": 12, "avg_cost": 180.0 },
+      { "symbol": "MSFT",    "shares": 6,  "avg_cost": 320.0 },
+      { "symbol": "AMD",     "shares": 15, "avg_cost": 140.0 },
+      { "symbol": "TSLA",    "shares": 8,  "avg_cost": 250.0 },
+      { "symbol": "ADBE",    "shares": 4,  "avg_cost": 540.0 },
+      { "symbol": "ASML.AS", "shares": 3,  "avg_cost": 620.0 },
+      { "symbol": "LOGN.SW", "shares": 25, "avg_cost": 78.0 }
+    ]
+  },
+  "benchmarks": [
+    { "symbol": "^GSPC", "name": "S&P 500",      "kind": "index" },
+    { "symbol": "^IXIC", "name": "Nasdaq Comp.", "kind": "index" },
+    { "symbol": "^VIX",  "name": "VIX (fear)",   "kind": "vol" },
+    { "symbol": "^TNX",  "name": "US 10y yield",  "kind": "rate" },
+    { "symbol": "XLK",   "name": "Tech (XLK)",    "kind": "etf" },
+    { "symbol": "SMH",   "name": "Semis (SMH)",   "kind": "etf" },
+    { "symbol": "IGV",   "name": "Software (IGV)","kind": "etf" }
+  ],
+  "ipo": {
+    "months_ahead": 1,
+    "min_deal_usd": 50000000,
+    "max_show": 12
+  },
+  "self_improve": {
+    "enabled": true,
+    "seconds": 300,
+    "llm_code_improve": false
+  },
+  "sources": [
+    { "label": "Yahoo Finance",   "note": "prices, history, analyst consensus & targets" },
+    { "label": "Reuters",         "note": "market & company news (RSS)" },
+    { "label": "CNBC",            "note": "market & company news (RSS)" },
+    { "label": "MarketWatch",     "note": "market & company news (RSS)" },
+    { "label": "Nasdaq",          "note": "IPO calendar — upcoming & priced" }
+  ]
+}
