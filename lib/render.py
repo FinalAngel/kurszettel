@@ -1,4 +1,4 @@
-"""HTML rendering for Ledger issues and the archive index.
+"""HTML rendering for Kurszettel zettel and the archive index.
 
 Renderers take already-computed context dicts (built in generate.py) and return
 strings. No data access happens here. Charts are inline SVG — no JS, no deps.
@@ -16,7 +16,8 @@ FONTS = (
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     '<link href="https://fonts.googleapis.com/css2?'
     'family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&'
-    'family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">'
+    'family=Inter:wght@400;500;600;700;800&'
+    'family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">'
 )
 
 CADENCE = {
@@ -148,8 +149,8 @@ def masthead(cfg, issue, asset_prefix=""):
 </header>"""
 
 
-def _strip(cells):
-    return ('<div class="strip">' + "".join(
+def _strip(cells, cls=""):
+    return (f'<div class="strip {cls}">' + "".join(
         f'<span class="cell"><span class="k">{esc(k)}</span>{v}</span>'
         for k, v in cells) + "</div>")
 
@@ -210,12 +211,12 @@ def _footer(cfg, asset_prefix=""):
                       for s in cfg.get("sources", []))
     return f"""<footer class="foot">
   <p class="sources">Sources — {srcs}</p>
-  <p class="disclaimer">Ledger is a mechanical, rules-based reading of public
+  <p class="disclaimer">{esc(cfg['title'])} is a mechanical, rules-based reading of public
   market data for personal information only. It is not investment advice, not a
   recommendation, and not a solicitation to buy or sell any security. Signals
   can be wrong and past behaviour does not predict returns. Do your own
   research; consider your situation; capital is at risk.</p>
-  <p><a href="{asset_prefix}index.html">← All issues</a></p>
+  <p><a href="{asset_prefix}index.html">← All zettel</a></p>
 </footer>"""
 
 
@@ -324,8 +325,8 @@ def portfolio_standings_section(ctx):
     pnl_cls = "up" if (pnl or 0) > 0 else ("down" if (pnl or 0) < 0 else "")
     cells = [
         ("Portfolio value", f'<span class="num">{_money(t.get("value"), base)}</span>'),
-        ("Total P&L", f'<span class="num {pnl_cls}">{_money(pnl, base)}'
-                      f' ({(t.get("pnl_pct") or 0):+.1f}%)</span>'),
+        ("Total P&L", f'<span class="num {pnl_cls}">{(t.get("pnl_pct") or 0):+.1f}%'
+                      f'<span class="sub">{_money(pnl, base)}</span></span>'),
         ("Keep / Sell / Buy", f'<span class="num">{t.get("n_keep",0)} / '
                               f'{t.get("n_sell",0)} / {t.get("n_add",0)}</span>'),
     ]
@@ -343,7 +344,7 @@ def portfolio_standings_section(ctx):
                 f'Effective holdings {t.get("eff_n",0):.1f} of {t.get("n",0)}.{warn}</p>')
     return f"""<section class="section">
   <h2>Where you stand — your holdings</h2>
-  {_strip(cells)}
+  {_strip(cells, "strip-fit")}
   {xray}
   <ul class="holdings">{body}</ul>
 </section>"""
@@ -465,6 +466,10 @@ def daily_inner(cfg, issue, ctx):
 {market_context_section(ctx)}
 {shifts_html}
 <section class="section">
+  <h2>What to own now — the ranked book</h2>
+  <ol class="rank">{ranked}</ol>
+</section>
+<section class="section">
   <h2>Today's movers — the market</h2>
   <div class="movers">
     {_movers_col("Leaders", ctx['gainers'], "ret_1d")}
@@ -561,9 +566,9 @@ def monthly_inner(cfg, issue, ctx):
   <p class="lede">{esc(ctx['lede'])}</p>
   {_strip(ctx['strip'])}
 </section>
+{allocation_section(ctx)}
 {portfolio_standings_section(ctx)}
 {decision_board_section(ctx)}
-{allocation_section(ctx)}
 {market_context_section(ctx)}
 <section class="section">
   <h2>Conviction list — the idea pool</h2>
@@ -586,50 +591,88 @@ def _latest_by_type(issues, type_label):
     return max(matches, key=lambda it: it["num"]) if matches else None
 
 
-def index_inner(cfg, issues):
+def _ticker_strip(cfg, ticker):
+    """A scrolling marquee of quotes — the literal Kurszettel. Falls back to
+    watchlist symbols when no snapshot data is available."""
+    items = []
+    for t in (ticker or []):
+        ch = t.get("ret_1d")
+        cls = "up" if (ch or 0) > 0 else ("down" if (ch or 0) < 0 else "flat")
+        arrow = "▲" if (ch or 0) > 0 else ("▼" if (ch or 0) < 0 else "·")
+        chg = f'{ch:+.2f}%' if ch is not None else ""
+        px = _price(t.get("price"), t.get("currency")) if t.get("price") else ""
+        items.append(f'<span class="tk"><b>{esc(t["symbol"])}</b>'
+                     f'<span class="tp">{esc(px)}</span>'
+                     f'<span class="{cls}">{arrow} {esc(chg)}</span></span>')
+    if not items:
+        for w in cfg.get("watchlist", [])[:18]:
+            items.append(f'<span class="tk"><b>{esc(w["symbol"])}</b></span>')
+    if not items:
+        return ""
+    run = "".join(items)
+    return (f'<div class="ticker" aria-hidden="true"><div class="tk-track">'
+            f'{run}{run}</div></div>')
+
+
+def index_inner(cfg, issues, ticker=None):
+    title = esc(cfg["title"])
+    latest_all = max(issues, key=lambda it: it["num"]) if issues else None
+    cta = (f'<a class="btn primary" href="{esc(latest_all["path"])}">'
+           f'Read the latest zettel <span>→</span></a>' if latest_all else "")
+
     channels = [
         ("daily", "Daily", "The Tape", "What's moving today — your holdings, "
-         "breadth, the ranked book.", "09:00 every weekday"),
-        ("weekly", "Weekly Review", "The Review", "Your standings and the "
-         "keep · sell · buy shortlist, to retain.", "Monday mornings"),
-        ("monthly", "Monthly Allocation", "The Allocation", "The decision and "
-         "the plan — where this month's budget goes.", "1st of the month"),
+         "market breadth, the ranked book.", "daily · 09:00"),
+        ("weekly", "Weekly", "The Review", "Your standings and the "
+         "keep · sell · buy shortlist, so it sticks.", "Monday"),
+        ("monthly", "Monthly", "The Allocation", "The decision and "
+         "the plan — where this month's budget goes.", "1st of month"),
     ]
     cards = ""
     for kind, tlabel, name, blurb, when in channels:
         latest = _latest_by_type(issues, tlabel)
         link = latest["path"] if latest else "#"
-        meta = (f'№{latest["num"]:03d} · {latest["date"]}' if latest
-                else "no issue yet")
+        meta = (f'№{latest["num"]:03d} · {latest["date"]}' if latest else "soon")
         cards += f"""<a class="chan ch-{kind}" href="{esc(link)}">
+      <span class="ctag">{esc(when)}</span>
       <span class="cname">{esc(name)}</span>
       <span class="cblurb">{esc(blurb)}</span>
-      <span class="cmeta"><span>{esc(when)}</span><span>{esc(meta)} →</span></span>
+      <span class="cmeta">{esc(meta)} <span class="ar">→</span></span>
     </a>"""
 
+    tmap = {"Daily": "daily", "Weekly": "weekly", "Monthly": "monthly"}
     rows = ""
-    tmap = {"Daily": "daily", "Weekly Review": "weekly", "Monthly Allocation": "monthly"}
     for it in issues:
         k = tmap.get(it.get("type"), "daily")
-        rows += f"""<li>
-  <a class="ti" href="{esc(it['path'])}">
+        rows += f"""<li><a class="ti" href="{esc(it['path'])}">
     <span class="no">№{it['num']:03d}</span>
     <span class="badge b-{k}">{esc(it['type'])}</span>
     <span class="til">{esc(it['title'])}</span>
     <span class="dt">{esc(it['date'])} <span class="arrow">→</span></span>
-  </a>
-</li>"""
-    archive = rows or '<li class="faint">No issues yet — run the generator.</li>'
-    return f"""<header class="hero">
-  <div class="kicker"><span>{esc(cfg['title'])}</span><span>{esc(cfg['schedule_note'])}</span></div>
-  <h1>{esc(cfg['title'])}</h1>
-  <p class="lead">{esc(cfg['tagline'])}</p>
-  <p class="lead2">Three readings: a daily pulse, a weekly review to make it
-  stick, and a monthly allocation that turns signals into a plan.</p>
+  </a></li>"""
+    archive = rows or '<li class="faint">No zettel yet — run the generator.</li>'
+
+    return f"""<div class="lp">
+{_ticker_strip(cfg, ticker)}
+<header class="lp-hero">
+  <div class="lp-inner">
+    <div class="brand">{title}<i class="dot"></i></div>
+    <h1 class="lp-title">Know what to <em>buy</em>, keep,<br>and sell — every morning.</h1>
+    <p class="lp-sub">{esc(cfg['tagline'])} A quantitative reading of the tech
+      market, your portfolio and the market's mood — distilled, scored, and
+      turned into a monthly buy list you can act on.</p>
+    <div class="lp-cta">{cta}
+      <div class="chips"><span>daily 09:00</span><span>weekly Mon</span><span>monthly 1st</span></div>
+    </div>
+  </div>
 </header>
-<section class="channels">{cards}</section>
-<section class="section">
-  <h2>Issues — the archive</h2>
+<section class="lp-inner lp-block">
+  <div class="eyebrow2">Three readings</div>
+  <div class="channels">{cards}</div>
+</section>
+<section class="lp-inner lp-block">
+  <div class="arc-head"><h2>The archive</h2><span>{len(issues)} zettel</span></div>
   <ul class="archive">{archive}</ul>
 </section>
-{_footer(cfg)}"""
+<div class="lp-inner">{_footer(cfg)}</div>
+</div>"""

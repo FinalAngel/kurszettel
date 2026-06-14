@@ -34,7 +34,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(ROOT, "data")
 SNAP = os.path.join(DATA, "snapshots")
 SITE = os.path.join(ROOT, "site")
-ISSUES_DIR = os.path.join(SITE, "issues")
+ISSUES_DIR = os.path.join(SITE, "zettel")
 ISSUES_JSON = os.path.join(DATA, "issues.json")
 
 BUYISH = ("BUY", "ACCUMULATE")
@@ -54,7 +54,7 @@ def use_demo_paths():
     global DEMO, SITE, ISSUES_DIR, ISSUES_JSON, SNAP
     DEMO = True
     SITE = os.path.join(ROOT, "site_demo")
-    ISSUES_DIR = os.path.join(SITE, "issues")
+    ISSUES_DIR = os.path.join(SITE, "zettel")
     ISSUES_JSON = os.path.join(DATA, "demo_issues.json")
     SNAP = os.path.join(DATA, "demo_snapshots")
 
@@ -294,8 +294,7 @@ def load_snapshots(days):
 # ---- issue assembly --------------------------------------------------
 
 def issue_meta(cfg, issues, kind, dt):
-    type_label = {"daily": "Daily", "weekly": "Weekly Review",
-                  "monthly": "Monthly Allocation"}[kind]
+    type_label = {"daily": "Daily", "weekly": "Weekly", "monthly": "Monthly"}[kind]
     num = (max((it["num"] for it in issues), default=0)) + 1
     return {
         "num": num,
@@ -320,16 +319,29 @@ def commit_issue(cfg, issues, meta, inner, title, headline):
         "type": meta["type_label"],
         "title": title,
         "date": meta["date_short"],
-        "path": f"issues/{fname}",
+        "path": f"zettel/{fname}",
     })
     save_issues(issues)
     rebuild_index(cfg, issues)
     return fname
 
 
+def latest_ticker(limit=22):
+    """Quotes for the landing-page ticker tape, from the most recent snapshot."""
+    snaps = load_snapshots(1)
+    if not snaps:
+        return []
+    out = [{"symbol": r["symbol"], "price": r.get("price"),
+            "ret_1d": r.get("ret_1d"), "currency": r.get("currency"),
+            "verdict": r.get("verdict")}
+           for r in snaps[-1]["recs"] if r.get("price") is not None]
+    out.sort(key=lambda o: abs(o.get("ret_1d") or 0), reverse=True)
+    return out[:limit]
+
+
 def rebuild_index(cfg, issues):
     ordered = sorted(issues, key=lambda it: it["num"], reverse=True)
-    inner = render.index_inner(cfg, ordered)
+    inner = render.index_inner(cfg, ordered, ticker=latest_ticker())
     html = render.page(cfg, {}, inner, asset_prefix="", is_index=True)
     with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
@@ -597,11 +609,11 @@ def run_demo(cfg):
         save_snapshot(d, recs)
 
     SOURCE_FACTORY = lambda: SyntheticSource(0)  # noqa: E731
-    print("Generating issues…")
+    print("Generating zettel…")
     gen_daily(cfg, issues, dt)
     gen_weekly(cfg, issues, dt)
     gen_monthly(cfg, issues, dt)
-    print(f"\n✓ Demo built — {len(issues)} issues. Open: site_demo/index.html")
+    print(f"\n✓ Demo built — {len(issues)} zettel. Open: site_demo/index.html")
     print("  (synthetic prices for layout/mechanics; IPO radar is live data)")
 
 
@@ -625,13 +637,13 @@ def main():
         f = gen_monthly(cfg, issues, dt)
     elif kind == "build":
         rebuild_index(cfg, issues)
-        print("Rebuilt index from", len(issues), "issues.")
+        print("Rebuilt index from", len(issues), "zettel.")
         launch_self_improvement(cfg)
         return
     else:
         sys.exit(f"Unknown command '{kind}'. Use daily|weekly|monthly|build|demo.")
 
-    print(f"Wrote site/issues/{f}  (№{issues[-1]['num']:03d}, {kind})")
+    print(f"Wrote site/zettel/{f}  (№{issues[-1]['num']:03d}, {kind})")
     print(f"Open site/index.html")
     launch_self_improvement(cfg)
 

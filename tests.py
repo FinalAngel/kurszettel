@@ -234,7 +234,7 @@ def test_render():
               faders=[dict(rec, score_delta=-5, score_series=[3, 2, 1])],
               upgrades=[{"name": "X", "symbol": "X", "from": "HOLD", "to": "BUY"}],
               downgrades=[])
-    hw = render.weekly_inner(cfg, dict(issue, kind="weekly", type_label="Weekly Review"), wk)
+    hw = render.weekly_inner(cfg, dict(issue, kind="weekly", type_label="Weekly"), wk)
     check("weekly standings", "Where you stand" in hw and "decision" in hw.lower())
 
     # monthly: allocation plan + conviction cards
@@ -246,7 +246,7 @@ def test_render():
               "region": "US", "verdict": "BUY", "score": 80, "amount_base": 480,
               "price": 150, "currency": "USD", "shares": 3, "rationale": "x",
               "is_held": True}], alloc_leftover=20)
-    hm = render.monthly_inner(cfg, dict(issue, kind="monthly", type_label="Monthly Allocation"), mc)
+    hm = render.monthly_inner(cfg, dict(issue, kind="monthly", type_label="Monthly"), mc)
     check("monthly allocation", "This month's plan" in hm and "buy <b>3</b>" in hm)
     check("monthly conviction cards", "Conviction list" in hm and "allocation" in hm)
 
@@ -258,9 +258,18 @@ def test_render():
           "No upcoming or recent IPOs" in html2)
     page = render.page(cfg, issue, html, asset_prefix="../")
     check("page wraps html", page.startswith("<!doctype html>") and "</html>" in page)
-    idx = render.index_inner(cfg, [{"num": 1, "type": "Daily", "title": "t",
-                                    "date": "2026-06-14", "path": "issues/001.html"}])
-    check("index renders", "Issues" in idx)
+    issues_l = [{"num": 1, "type": "Daily", "title": "t",
+                 "date": "2026-06-14", "path": "zettel/001.html"}]
+    idx = render.index_inner(cfg, issues_l, ticker=[
+        {"symbol": "NVDA", "price": 300.0, "ret_1d": 1.5, "currency": "USD"},
+        {"symbol": "AAPL", "price": 200.0, "ret_1d": -0.8, "currency": "USD"}])
+    check("landing hero", "lp-title" in idx and cfg["title"] in idx)
+    check("landing ticker", "tk-track" in idx and "NVDA" in idx)
+    check("landing channels", "The Tape" in idx and "The Allocation" in idx)
+    check("landing archive", "The archive" in idx and "zettel/001.html" in idx)
+    # ticker falls back to watchlist when no snapshot
+    idx2 = render.index_inner(cfg, issues_l)
+    check("ticker fallback", "tk-track" in idx2)
 
 
 def main():

@@ -1,11 +1,11 @@
-# Ledger
+# Kurszettel
 
-A daily reading of the tech market — *what is moving, what is shifting, and
-what is worth owning.* Modelled on the clean, archival aesthetic of
-[Ephemeris](https://vadim.sikora.name/ephemeris/), but for stocks.
+*The quote sheet, reimagined.* A daily / weekly / monthly reading of the tech
+market and your portfolio — what to **buy, keep and sell** — with a dark,
+zed-inspired landing and clean archival zettel. (Formerly "Ledger".)
 
 Ledger pulls public market data every morning, scores every name on a
-transparent, rules-based system, and renders a minimalist static issue. Issues
+transparent, rules-based system, and renders a minimalist static zettel. Zettel
 are numbered and archived, so you build up a history you can read back.
 
 Three cadences, matching how you asked to use it:
@@ -16,7 +16,7 @@ Three cadences, matching how you asked to use it:
 | `python3 generate.py weekly`  | **What's going on this week** — conviction gains/drops, weekly leaders & laggards, where the book stands. |
 | `python3 generate.py monthly` | **What to invest in** — the *conviction list*, synthesised from the past ~4 weeks of daily readings. |
 
-`python3 generate.py build` just rebuilds `site/index.html` from existing issues.
+`python3 generate.py build` just rebuilds `site/index.html` from existing zettel.
 
 Every run also kicks off a **self-improvement pass** in the background (see below).
 
@@ -29,7 +29,7 @@ python3 generate.py daily
 open site/index.html       # macOS; or serve the site/ folder
 ```
 
-The first run writes one snapshot. Weekly/monthly issues get richer as
+The first run writes one snapshot. Weekly/monthly zettel get richer as
 snapshots accumulate (they read back `data/snapshots/*.json` to measure how
 each name's signal is evolving). Run `daily` every trading day and the weekly
 and monthly syntheses become meaningful within a week / month.
@@ -53,7 +53,7 @@ Set it in `config.json → portfolio`:
 ```
 
 `avg_cost` is in the stock's trading currency; Ledger fetches FX and reports
-everything in your `base_currency`. Each issue then carries:
+everything in your `base_currency`. Each zettel then carries:
 
 - **Where you stand** — every holding with live price, P&L, portfolio weight,
   annualised volatility, max drawdown, and a per-position verdict, plus a
@@ -82,13 +82,13 @@ HHI/effective-N concentration, and annualised vol / max-drawdown per holding.
 
 ## Market context & IPO radar
 
-Every issue opens with a **Market context** read before the stock-picking — the
+Every zettel opens with a **Market context** read before the stock-picking — the
 S&P 500, Nasdaq, the VIX ("fear"), the 10-year yield and the tech-sector ETFs
 (XLK / SMH / IGV), each with its trend vs. the 200-day line, condensed into a
 one-line **Risk-on / Neutral / Risk-off** regime (`lib/trends.py`). It answers
 "what's the weather?" before "what do I buy?".
 
-Daily and monthly issues also carry an **IPO radar** — *pricing soon* and *just
+Daily and monthly zettel also carry an **IPO radar** — *pricing soon* and *just
 listed* names from Nasdaq's public IPO calendar, filtered by deal size and
 sorted biggest-first, so upcoming listings are on your radar before they trade.
 Configure both in `config.json` (`benchmarks`, `ipo.min_deal_usd`,
@@ -187,7 +187,7 @@ Edit `config.json`:
 Run it locally — not in CI. Yahoo rate-limits datacenter IPs hard (GitHub
 Actions / cloud agents get banned), your home IP is the reliable data path, and
 your holdings stay private. One command installs scheduled jobs that generate
-each issue and open it in your browser:
+each zettel and open it in your browser:
 
 ```bash
 bash bin/install-launchd.sh      # installs the three jobs
