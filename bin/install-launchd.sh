@@ -8,7 +8,7 @@
 # lid at 09:00 won't skip your digest. Re-run this script any time to refresh.
 set -euo pipefail
 
-REPO="/Users/angelo.dini/Sites/ledger"
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
 WRAP="$REPO/bin/ledger-run.sh"
 AGENTS="$HOME/Library/LaunchAgents"
 UID_NUM="$(id -u)"
