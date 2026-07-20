@@ -1,0 +1,36 @@
+name: Probe Yahoo from runner
+
+# Temporary diagnostic: can a GitHub-hosted runner fetch Yahoo Finance
+# with curl_cffi's Chrome TLS impersonation, or are datacenter IPs
+# still blocked? Decides whether the real zettel can be built in CI.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install curl_cffi
+      - name: Fetch three symbols
+        run: |
+          python - <<'EOF'
+          from curl_cffi import requests
+          import time
+          ok = 0
+          for s in ['AAPL', 'LHA.DE', '1810.HK']:
+              r = requests.get(
+                  'https://query1.finance.yahoo.com/v8/finance/chart/%s?range=5d&interval=1d' % s,
+                  impersonate='chrome', timeout=15)
+              print(s, r.status_code)
+              if r.ok:
+                  ok += 1
+                  m = r.json()['chart']['result'][0]['meta']
+                  print('  ', m.get('regularMarketPrice'), m.get('currency'))
+              time.sleep(1)
+          print('RESULT:', 'USABLE' if ok == 3 else 'BLOCKED (%d/3)' % ok)
+          exit(0 if ok == 3 else 1)
+          EOF
