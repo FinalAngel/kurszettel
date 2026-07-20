@@ -16,6 +16,8 @@ LOG="$REPO/data/launchd.log"
 cd "$REPO" || exit 1
 mkdir -p "$REPO/data"
 echo "===== $(date '+%Y-%m-%d %H:%M:%S')  kurszettel $CADENCE =====" >> "$LOG"
+# Pick up state if the CI backstop published while this machine was off.
+bash "$REPO/bin/sync-state.sh" >> "$LOG" 2>&1 || true
 "$PY" generate.py "$CADENCE" >> "$LOG" 2>&1
 rc=$?
 echo "generate exit $rc" >> "$LOG"

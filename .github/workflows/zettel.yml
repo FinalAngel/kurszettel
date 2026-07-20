@@ -1,0 +1,63 @@
+name: Zettel backstop
+
+# Builds and publishes the real zettel on GitHub if the local (launchd) run
+# hasn't already done so. generate.py skips same-day duplicates, so running
+# alongside the Mac schedule is safe — whoever publishes first wins.
+# Yahoo is reachable from runners again via curl_cffi's Chrome TLS
+# impersonation (probed 2026-07-20; plain urllib gets HTTP 429).
+
+on:
+  schedule:
+    # 08:35 UTC = 10:35 Zurich in summer / 09:35 in winter — comfortably
+    # after the 09:00 local run, so this only fires when the Mac missed it.
+    - cron: '35 8 * * 1-5'
+    # Monthly issue: the local schedule runs it on the 1st regardless of
+    # weekday, so the backstop needs its own trigger for weekend 1sts.
+    - cron: '45 8 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: zettel
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install curl_cffi
+
+      - name: Sync state from gh-pages
+        run: |
+          bash bin/sync-state.sh
+          if [ ! -f data/issues.json ]; then
+            echo "No published state on gh-pages yet — run a local publish first."
+            exit 1
+          fi
+
+      - name: Generate due issues
+        env:
+          LEDGER_NO_IMPROVE: '1'
+        run: |
+          dow="$(TZ=Europe/Zurich date +%u)"
+          dom="$(TZ=Europe/Zurich date +%d)"
+          if [ "$dow" -le 5 ]; then python generate.py daily;   fi
+          if [ "$dow" -eq 1 ]; then python generate.py weekly;  fi
+          if [ "$dom" = "01" ]; then python generate.py monthly; fi
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name  "kurszettel-bot"
+          git config user.email "noreply@devguard.ch"
+          bash bin/publish.sh

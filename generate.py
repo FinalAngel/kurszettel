@@ -629,6 +629,18 @@ def main():
     issues = load_issues()
     dt = now()
 
+    # Idempotency: with several schedulers (launchd + CI backstop) the same
+    # issue must never be published twice. `--force` overrides.
+    if kind in ("daily", "weekly", "monthly") and "--force" not in sys.argv:
+        label = {"daily": "Daily", "weekly": "Weekly", "monthly": "Monthly"}[kind]
+        today = dt.strftime("%Y-%m-%d")
+        dup = next((it for it in issues
+                    if it["date"] == today and it["type"] == label), None)
+        if dup:
+            print(f"№{dup['num']:03d} ({kind}) already published for {today} "
+                  "— skipping (use --force to regenerate).")
+            return
+
     if kind == "daily":
         f = gen_daily(cfg, issues, dt)
     elif kind == "weekly":
