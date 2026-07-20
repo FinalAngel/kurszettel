@@ -1,9 +1,20 @@
 # Daily kurszettel → GitHub Pages
 
-The real (live-data) zettel must be generated **on this Mac** — Yahoo Finance
-blocks datacenter IPs, so CI / cloud runners can't fetch prices. A launchd job
-generates it on a schedule and pushes the built site to the `gh-pages` branch,
-which GitHub Pages serves publicly.
+Two schedulers cooperate; whoever runs first wins (same-day duplicates are
+skipped by `generate.py`):
+
+1. **This Mac (primary):** a launchd job generates the zettel and pushes the
+   built site to the `gh-pages` branch, which GitHub Pages serves publicly.
+2. **GitHub Actions backstop** (`.github/workflows/zettel.yml`): runs Mon–Fri
+   08:35 UTC (plus the 1st for monthlies), restores state from `gh-pages` via
+   `bin/sync-state.sh`, and builds + publishes only if the Mac missed its run
+   (asleep, offline). Yahoo works from runners via `curl_cffi`'s Chrome TLS
+   impersonation — plain HTTP clients get 429 since mid-2026.
+
+State (issue ledger, snapshots, tuned weights) travels with the published site
+under `/data/` on `gh-pages`; both schedulers sync from it before generating.
+`bin/publish.sh` verifies the Pages build after each push and re-requests it
+if GitHub's build service dropped it.
 
 ## One-time setup (run in Terminal)
 

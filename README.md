@@ -102,22 +102,27 @@ weights against realised forward returns and adopts a better set **only if**
 `python3 tests.py` still passes — backing up and rolling back otherwise. Off via
 `config.json → self_improve.enabled: false`.
 
-## Run on a schedule (local)
+## Run on a schedule
 
-Run locally, not in CI — datacenter IPs get rate-limited and your holdings stay
-private. macOS `launchd` jobs generate each zettel and open it for you:
+Two schedulers cooperate — `generate.py` skips same-day duplicates, so
+whoever runs first wins:
 
 ```bash
-bash bin/install-launchd.sh      # daily 09:00 · weekly Mon · monthly 1st
+bash bin/install-launchd.sh      # local primary: daily 09:00 · weekly Mon · monthly 1st
 bin/uninstall-launchd.sh         # remove
 ```
 
+`.github/workflows/zettel.yml` is the **CI backstop**: it runs after the local
+window (Mon–Fri 08:35 UTC, plus the 1st for monthlies), restores state from
+`gh-pages` (`bin/sync-state.sh`), and builds + publishes only when the local
+run was missed. See `bin/SCHEDULING.md` for the full picture.
+
 ## Deploy (GitHub Pages)
 
-`.github/workflows/pages.yml` builds the **offline demo** (synthetic data, no
-holdings) and publishes it to Pages on every push to `main`. Enable it under
-**Settings → Pages → Source: GitHub Actions**. Your real, private data stays on
-your machine.
+`bin/publish.sh` force-pushes the built `site/` (plus generator state under
+`/data/`) to the `gh-pages` branch, which Pages serves — **Settings → Pages →
+Source: Deploy from a branch → `gh-pages`**. After each push it verifies the
+Pages build via API and re-requests it if GitHub's build service dropped it.
 
 ## Develop
 
