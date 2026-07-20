@@ -32,6 +32,7 @@ if [ -d "$REPO/data/snapshots" ]; then cp -R "$REPO/data/snapshots" data/; fi
 if [ -f "$REPO/weights.json" ]; then cp "$REPO/weights.json" data/; fi
 
 git add -A
+git add -Af data   # force: user-global gitignores often exclude data/
 if git diff --cached --quiet; then
   echo "publish: nothing changed"
 else
