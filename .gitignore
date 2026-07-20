@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
+.venv/
 .DS_Store
 
 # Generated output (the site is built locally or in CI, never committed)

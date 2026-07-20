@@ -7,7 +7,10 @@ set -u
 CADENCE="${1:-daily}"
 OPENFLAG="${2:-}"
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
-PY="/opt/homebrew/bin/python3"; [ -x "$PY" ] || PY="$(command -v python3)"
+# Prefer the repo venv (has curl_cffi, needed to get past Yahoo's TLS checks)
+PY="$REPO/.venv/bin/python"
+[ -x "$PY" ] || PY="/opt/homebrew/bin/python3"
+[ -x "$PY" ] || PY="$(command -v python3)"
 LOG="$REPO/data/launchd.log"
 
 cd "$REPO" || exit 1

@@ -23,7 +23,9 @@ what to **buy, keep, and sell** — rendered as a self-contained static site.
 Inspired by the archival aesthetic of
 [Ephemeris](https://vadim.sikora.name/ephemeris/) and the look of
 [zed.dev](https://zed.dev) — built with **standard-library Python only**. No
-dependencies, no API keys, no database.
+API keys, no database. One optional dependency: [`curl_cffi`](https://pypi.org/project/curl-cffi/)
+for live Yahoo data (Yahoo rejects non-browser TLS fingerprints with HTTP 429
+since mid-2026); everything else, including the demo and tests, is stdlib.
 
 ## Features
 
@@ -54,9 +56,13 @@ open site_demo/index.html       # macOS (or open it however you like)
 For real data (Yahoo Finance + Nasdaq, key-less):
 
 ```bash
-python3 generate.py daily        # or: weekly · monthly
+python3 -m venv .venv && .venv/bin/pip install curl_cffi   # once
+.venv/bin/python generate.py daily        # or: weekly · monthly
 open site/index.html
 ```
+
+The launchd wrapper (`bin/ledger-run.sh`) picks up `.venv/bin/python`
+automatically when it exists.
 
 ## How it works
 

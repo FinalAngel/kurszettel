@@ -5,8 +5,9 @@ Data sources for Ledger — all via free, key-less endpoints.
   * Yahoo quoteSummary   -> analyst consensus & price targets (best effort)
   * Yahoo headline RSS    -> recent company news
 
-Everything here is standard-library only so the generator runs with a bare
-Python install and no `pip install` step.
+Everything here runs on a bare Python install; if `curl_cffi` is available
+(repo venv) it is used to impersonate a Chrome TLS fingerprint, which Yahoo
+requires since mid-2026 — plain urllib gets HTTP 429 on every request.
 """
 
 import json
@@ -16,6 +17,11 @@ import urllib.parse
 import urllib.error
 import http.cookiejar
 import xml.etree.ElementTree as ET
+
+try:
+    from curl_cffi import requests as _curl
+except ImportError:
+    _curl = None
 
 _UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -59,9 +65,42 @@ class Yahoo:
             urllib.request.HTTPCookieProcessor(cj)
         )
         self.opener.addheaders = [("User-Agent", _UA)]
+        self.sess = _curl.Session(impersonate="chrome") if _curl else None
         self.crumb = None
 
     # -- low level -------------------------------------------------------
+    def _read(self, url_or_req, tries=3):
+        """GET -> body bytes, preferring the Chrome-impersonating session."""
+        if self.sess is None:
+            with self._open(url_or_req, tries) as r:
+                return r.read()
+        if isinstance(url_or_req, urllib.request.Request):
+            url = url_or_req.full_url
+            headers = dict(url_or_req.header_items())
+        else:
+            url, headers = url_or_req, None
+        last = None
+        for i in range(tries):
+            try:
+                r = self.sess.get(url, headers=headers, timeout=12)
+                if r.status_code in (429, 502, 503):
+                    last = urllib.error.HTTPError(
+                        url, r.status_code, "throttled", None, None)
+                    if i < tries - 1:
+                        time.sleep(1.0 + i)
+                    continue
+                if r.status_code >= 400:
+                    raise urllib.error.HTTPError(
+                        url, r.status_code, "error", None, None)
+                return r.content
+            except urllib.error.HTTPError:
+                raise
+            except Exception as e:  # transient network blips
+                last = e
+                if i < tries - 1:
+                    time.sleep(0.8 + i)
+        raise last
+
     def _open(self, url, tries=3):
         last = None
         for i in range(tries):
@@ -85,21 +124,22 @@ class Yahoo:
 
     def _get_json(self, url_or_req):
         time.sleep(self.pause)
-        with self._open(url_or_req) as r:
-            return json.load(r)
+        return json.loads(self._read(url_or_req))
 
     def _ensure_crumb(self):
         if self.crumb:
             return self.crumb
         try:
             try:
-                self.opener.open("https://fc.yahoo.com", timeout=10)
+                if self.sess is not None:
+                    self.sess.get("https://fc.yahoo.com", timeout=10)
+                else:
+                    self.opener.open("https://fc.yahoo.com", timeout=10)
             except Exception:
                 pass  # only here to plant the consent cookie
-            with self._open(
+            crumb = self._read(
                 "https://query2.finance.yahoo.com/v1/test/getcrumb"
-            ) as r:
-                crumb = r.read().decode().strip()
+            ).decode().strip()
             if crumb and "<" not in crumb:
                 self.crumb = crumb
         except Exception:
@@ -222,9 +262,7 @@ class Yahoo:
         )
         try:
             time.sleep(self.pause)
-            with self._open(url) as r:
-                body = r.read()
-            root = ET.fromstring(body)
+            root = ET.fromstring(self._read(url))
         except Exception:
             return []
         items = []
