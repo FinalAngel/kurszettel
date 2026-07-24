@@ -1,0 +1,51 @@
+[
+  {
+    "num": 1,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 19 Jul 2026",
+    "date": "2026-07-19",
+    "path": "zettel/001.html"
+  },
+  {
+    "num": 2,
+    "type": "Daily",
+    "title": "The tape \u2014 20 Jul 2026",
+    "date": "2026-07-20",
+    "path": "zettel/002.html"
+  },
+  {
+    "num": 3,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 20 Jul 2026",
+    "date": "2026-07-20",
+    "path": "zettel/003.html"
+  },
+  {
+    "num": 4,
+    "type": "Daily",
+    "title": "The tape \u2014 21 Jul 2026",
+    "date": "2026-07-21",
+    "path": "zettel/004.html"
+  },
+  {
+    "num": 5,
+    "type": "Daily",
+    "title": "The tape \u2014 22 Jul 2026",
+    "date": "2026-07-22",
+    "path": "zettel/005.html"
+  },
+  {
+    "num": 6,
+    "type": "Daily",
+    "title": "The tape \u2014 23 Jul 2026",
+    "date": "2026-07-23",
+    "path": "zettel/006.html"
+  },
+  {
+    "num": 7,
+    "type": "Daily",
+    "title": "The tape \u2014 24 Jul 2026",
+    "date": "2026-07-24",
+    "path": "zettel/007.html"
+  }
+]
