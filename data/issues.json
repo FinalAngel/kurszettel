@@ -1,0 +1,331 @@
+[
+  {
+    "num": 1,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 19 Jul 2026",
+    "date": "2026-07-19",
+    "path": "zettel/001.html"
+  },
+  {
+    "num": 2,
+    "type": "Daily",
+    "title": "The tape \u2014 20 Jul 2026",
+    "date": "2026-07-20",
+    "path": "zettel/002.html"
+  },
+  {
+    "num": 3,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 20 Jul 2026",
+    "date": "2026-07-20",
+    "path": "zettel/003.html"
+  },
+  {
+    "num": 4,
+    "type": "Daily",
+    "title": "The tape \u2014 21 Jul 2026",
+    "date": "2026-07-21",
+    "path": "zettel/004.html"
+  },
+  {
+    "num": 5,
+    "type": "Daily",
+    "title": "The tape \u2014 22 Jul 2026",
+    "date": "2026-07-22",
+    "path": "zettel/005.html"
+  },
+  {
+    "num": 6,
+    "type": "Daily",
+    "title": "The tape \u2014 23 Jul 2026",
+    "date": "2026-07-23",
+    "path": "zettel/006.html"
+  },
+  {
+    "num": 7,
+    "type": "Daily",
+    "title": "The tape \u2014 24 Jul 2026",
+    "date": "2026-07-24",
+    "path": "zettel/007.html"
+  },
+  {
+    "num": 8,
+    "type": "Daily",
+    "title": "The tape \u2014 27 Jul 2026",
+    "date": "2026-07-27",
+    "path": "zettel/008.html"
+  },
+  {
+    "num": 9,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 27 Jul 2026",
+    "date": "2026-07-27",
+    "path": "zettel/009.html"
+  },
+  {
+    "num": 10,
+    "type": "Daily",
+    "title": "The tape \u2014 28 Jul 2026",
+    "date": "2026-07-28",
+    "path": "zettel/010.html"
+  },
+  {
+    "num": 11,
+    "type": "Daily",
+    "title": "The tape \u2014 29 Jul 2026",
+    "date": "2026-07-29",
+    "path": "zettel/011.html"
+  },
+  {
+    "num": 12,
+    "type": "Daily",
+    "title": "The tape \u2014 30 Jul 2026",
+    "date": "2026-07-30",
+    "path": "zettel/012.html"
+  },
+  {
+    "num": 13,
+    "type": "Daily",
+    "title": "The tape \u2014 31 Jul 2026",
+    "date": "2026-07-31",
+    "path": "zettel/013.html"
+  },
+  {
+    "num": 14,
+    "type": "Monthly",
+    "title": "The conviction list \u2014 August 2026",
+    "date": "2026-08-01",
+    "path": "zettel/014.html"
+  },
+  {
+    "num": 15,
+    "type": "Daily",
+    "title": "The tape \u2014 3 Aug 2026",
+    "date": "2026-08-03",
+    "path": "zettel/015.html"
+  },
+  {
+    "num": 16,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 3 Aug 2026",
+    "date": "2026-08-03",
+    "path": "zettel/016.html"
+  },
+  {
+    "num": 17,
+    "type": "Daily",
+    "title": "The tape \u2014 4 Aug 2026",
+    "date": "2026-08-04",
+    "path": "zettel/017.html"
+  },
+  {
+    "num": 18,
+    "type": "Daily",
+    "title": "The tape \u2014 5 Aug 2026",
+    "date": "2026-08-05",
+    "path": "zettel/018.html"
+  },
+  {
+    "num": 19,
+    "type": "Daily",
+    "title": "The tape \u2014 6 Aug 2026",
+    "date": "2026-08-06",
+    "path": "zettel/019.html"
+  },
+  {
+    "num": 20,
+    "type": "Daily",
+    "title": "The tape \u2014 7 Aug 2026",
+    "date": "2026-08-07",
+    "path": "zettel/020.html"
+  },
+  {
+    "num": 21,
+    "type": "Daily",
+    "title": "The tape \u2014 10 Aug 2026",
+    "date": "2026-08-10",
+    "path": "zettel/021.html"
+  },
+  {
+    "num": 22,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 10 Aug 2026",
+    "date": "2026-08-10",
+    "path": "zettel/022.html"
+  },
+  {
+    "num": 23,
+    "type": "Daily",
+    "title": "The tape \u2014 11 Aug 2026",
+    "date": "2026-08-11",
+    "path": "zettel/023.html"
+  },
+  {
+    "num": 24,
+    "type": "Daily",
+    "title": "The tape \u2014 12 Aug 2026",
+    "date": "2026-08-12",
+    "path": "zettel/024.html"
+  },
+  {
+    "num": 25,
+    "type": "Daily",
+    "title": "The tape \u2014 13 Aug 2026",
+    "date": "2026-08-13",
+    "path": "zettel/025.html"
+  },
+  {
+    "num": 26,
+    "type": "Daily",
+    "title": "The tape \u2014 14 Aug 2026",
+    "date": "2026-08-14",
+    "path": "zettel/026.html"
+  },
+  {
+    "num": 27,
+    "type": "Daily",
+    "title": "The tape \u2014 15 Aug 2026",
+    "date": "2026-08-15",
+    "path": "zettel/027.html"
+  },
+  {
+    "num": 28,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 15 Aug 2026",
+    "date": "2026-08-15",
+    "path": "zettel/028.html"
+  },
+  {
+    "num": 29,
+    "type": "Daily",
+    "title": "The tape \u2014 17 Aug 2026",
+    "date": "2026-08-17",
+    "path": "zettel/029.html"
+  },
+  {
+    "num": 30,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 17 Aug 2026",
+    "date": "2026-08-17",
+    "path": "zettel/030.html"
+  },
+  {
+    "num": 31,
+    "type": "Daily",
+    "title": "The tape \u2014 18 Aug 2026",
+    "date": "2026-08-18",
+    "path": "zettel/031.html"
+  },
+  {
+    "num": 32,
+    "type": "Daily",
+    "title": "The tape \u2014 19 Aug 2026",
+    "date": "2026-08-19",
+    "path": "zettel/032.html"
+  },
+  {
+    "num": 33,
+    "type": "Daily",
+    "title": "The tape \u2014 20 Aug 2026",
+    "date": "2026-08-20",
+    "path": "zettel/033.html"
+  },
+  {
+    "num": 34,
+    "type": "Daily",
+    "title": "The tape \u2014 21 Aug 2026",
+    "date": "2026-08-21",
+    "path": "zettel/034.html"
+  },
+  {
+    "num": 35,
+    "type": "Daily",
+    "title": "The tape \u2014 24 Aug 2026",
+    "date": "2026-08-24",
+    "path": "zettel/035.html"
+  },
+  {
+    "num": 36,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 24 Aug 2026",
+    "date": "2026-08-24",
+    "path": "zettel/036.html"
+  },
+  {
+    "num": 37,
+    "type": "Daily",
+    "title": "The tape \u2014 25 Aug 2026",
+    "date": "2026-08-25",
+    "path": "zettel/037.html"
+  },
+  {
+    "num": 38,
+    "type": "Daily",
+    "title": "The tape \u2014 26 Aug 2026",
+    "date": "2026-08-26",
+    "path": "zettel/038.html"
+  },
+  {
+    "num": 39,
+    "type": "Daily",
+    "title": "The tape \u2014 27 Aug 2026",
+    "date": "2026-08-27",
+    "path": "zettel/039.html"
+  },
+  {
+    "num": 40,
+    "type": "Daily",
+    "title": "The tape \u2014 28 Aug 2026",
+    "date": "2026-08-28",
+    "path": "zettel/040.html"
+  },
+  {
+    "num": 41,
+    "type": "Daily",
+    "title": "The tape \u2014 31 Aug 2026",
+    "date": "2026-08-31",
+    "path": "zettel/041.html"
+  },
+  {
+    "num": 42,
+    "type": "Weekly",
+    "title": "The week in conviction \u2014 31 Aug 2026",
+    "date": "2026-08-31",
+    "path": "zettel/042.html"
+  },
+  {
+    "num": 43,
+    "type": "Daily",
+    "title": "The tape \u2014 1 Sep 2026",
+    "date": "2026-09-01",
+    "path": "zettel/043.html"
+  },
+  {
+    "num": 44,
+    "type": "Monthly",
+    "title": "The conviction list \u2014 September 2026",
+    "date": "2026-09-01",
+    "path": "zettel/044.html"
+  },
+  {
+    "num": 45,
+    "type": "Daily",
+    "title": "The tape \u2014 2 Sep 2026",
+    "date": "2026-09-02",
+    "path": "zettel/045.html"
+  },
+  {
+    "num": 46,
+    "type": "Daily",
+    "title": "The tape \u2014 3 Sep 2026",
+    "date": "2026-09-03",
+    "path": "zettel/046.html"
+  },
+  {
+    "num": 47,
+    "type": "Daily",
+    "title": "The tape \u2014 4 Sep 2026",
+    "date": "2026-09-04",
+    "path": "zettel/047.html"
+  }
+]
