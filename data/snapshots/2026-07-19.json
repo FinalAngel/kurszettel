@@ -1,0 +1,23 @@
+{
+  "date": "2026-07-19",
+  "recs": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "region": "US",
+      "score": 83.8,
+      "verdict": "BUY",
+      "ret_1d": 0.14402582208634662,
+      "ret_1w": 5.841679082297002,
+      "ret_1m": 11.529207701476807,
+      "price": 333.74,
+      "currency": "USD",
+      "upside": null,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 82,
+        "position": 55
+      }
+    }
+  ]
+}
