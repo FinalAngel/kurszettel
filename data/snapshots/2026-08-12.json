@@ -1,0 +1,839 @@
+{
+  "date": "2026-08-12",
+  "recs": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "region": "US",
+      "score": 59.5,
+      "verdict": "ACCUMULATE",
+      "ret_1d": -1.0867469011185404,
+      "ret_1w": -1.4448255059005155,
+      "ret_1m": -3.9078484736979058,
+      "price": 304.91,
+      "currency": "USD",
+      "upside": 5.698204758524206,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 31,
+        "position": 85,
+        "analyst": 69
+      }
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "region": "US",
+      "score": 85.9,
+      "verdict": "BUY",
+      "ret_1d": -0.44461131305670865,
+      "ret_1w": 2.2320975740132143,
+      "ret_1m": 28.854960521262953,
+      "price": 503.81,
+      "currency": "USD",
+      "upside": 12.58208506154821,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 82,
+        "position": 85,
+        "analyst": 87
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "region": "US",
+      "score": 91.6,
+      "verdict": "BUY",
+      "ret_1d": -0.022984624709898593,
+      "ret_1w": 2.6233827944448063,
+      "ret_1m": 6.863853635577266,
+      "price": 217.5,
+      "currency": "USD",
+      "upside": 39.23107126436782,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 79,
+        "position": 85,
+        "analyst": 96
+      }
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "region": "US",
+      "score": 87.0,
+      "verdict": "BUY",
+      "ret_1d": -3.8375480091487835,
+      "ret_1w": -8.96332759184264,
+      "ret_1m": -2.4708580554768655,
+      "price": 343.8,
+      "currency": "USD",
+      "upside": 24.502785107066295,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 65,
+        "position": 85,
+        "analyst": 94
+      }
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "region": "US",
+      "score": 95.0,
+      "verdict": "BUY",
+      "ret_1d": -2.092850300572191,
+      "ret_1w": -1.8563997421923717,
+      "ret_1m": 10.092592981068016,
+      "price": 272.27,
+      "currency": "USD",
+      "upside": 19.438400529582633,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 96,
+        "position": 85,
+        "analyst": 95
+      }
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "region": "US",
+      "score": 76.4,
+      "verdict": "BUY",
+      "ret_1d": 0.47627215681407264,
+      "ret_1w": 0.79289657651338,
+      "ret_1m": -11.101154588736195,
+      "price": 594.92,
+      "currency": "USD",
+      "upside": 26.763679429791367,
+      "breakdown": {
+        "trend": 0,
+        "momentum": 21,
+        "position": 40,
+        "analyst": 95
+      }
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "region": "US",
+      "score": 94.9,
+      "verdict": "BUY",
+      "ret_1d": -1.4962138767851352,
+      "ret_1w": -0.4974213391112592,
+      "ret_1m": 8.340059835274216,
+      "price": 416.08,
+      "currency": "USD",
+      "upside": 26.870908728102428,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 94,
+        "position": 85,
+        "analyst": 95
+      }
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "region": "US",
+      "score": 75.2,
+      "verdict": "BUY",
+      "ret_1d": 1.0137170522135586,
+      "ret_1w": -8.534846755955305,
+      "ret_1m": -11.240855120344529,
+      "price": 474.32,
+      "currency": "USD",
+      "upside": 29.308228733593864,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 21,
+        "position": 85,
+        "analyst": 93
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "region": "US",
+      "score": 68.4,
+      "verdict": "ACCUMULATE",
+      "ret_1d": 0.5832908145854354,
+      "ret_1w": 1.667936872850273,
+      "ret_1m": -15.69308204339439,
+      "price": 332.81,
+      "currency": "USD",
+      "upside": 19.173925936576342,
+      "breakdown": {
+        "trend": 0,
+        "momentum": 38,
+        "position": 40,
+        "analyst": 79
+      }
+    },
+    {
+      "symbol": "CRM",
+      "name": "Salesforce",
+      "region": "US",
+      "score": 87.7,
+      "verdict": "BUY",
+      "ret_1d": -0.0202487404410423,
+      "ret_1w": 3.3928454584870815,
+      "ret_1m": 15.33115279339572,
+      "price": 197.47,
+      "currency": "USD",
+      "upside": 22.408365071027127,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 82,
+        "position": 60,
+        "analyst": 90
+      }
+    },
+    {
+      "symbol": "ORCL",
+      "name": "Oracle",
+      "region": "US",
+      "score": 92.3,
+      "verdict": "BUY",
+      "ret_1d": -3.687525462882757,
+      "ret_1w": -0.17840658420806843,
+      "ret_1m": 10.597539267835622,
+      "price": 145.48,
+      "currency": "USD",
+      "upside": 69.89981252330433,
+      "breakdown": {
+        "trend": 0,
+        "momentum": 96,
+        "position": 25,
+        "analyst": 92
+      }
+    },
+    {
+      "symbol": "ADBE",
+      "name": "Adobe",
+      "region": "US",
+      "score": 62.6,
+      "verdict": "ACCUMULATE",
+      "ret_1d": -3.3887750181595067,
+      "ret_1w": 2.4156283570641035,
+      "ret_1m": 14.353233058896574,
+      "price": 263.71,
+      "currency": "USD",
+      "upside": 2.236645836730311,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 82,
+        "position": 60,
+        "analyst": 56
+      }
+    },
+    {
+      "symbol": "NFLX",
+      "name": "Netflix",
+      "region": "US",
+      "score": 83.7,
+      "verdict": "BUY",
+      "ret_1d": -1.9661816515913921,
+      "ret_1w": 1.6582862930050402,
+      "ret_1m": 1.3002831649244984,
+      "price": 74.79,
+      "currency": "USD",
+      "upside": 25.73428111895746,
+      "breakdown": {
+        "trend": 0,
+        "momentum": 69,
+        "position": 25,
+        "analyst": 89
+      }
+    },
+    {
+      "symbol": "QCOM",
+      "name": "Qualcomm",
+      "region": "US",
+      "score": 68.7,
+      "verdict": "ACCUMULATE",
+      "ret_1d": 0.3144814161646803,
+      "ret_1w": 0.006144038205224689,
+      "ret_1m": -11.577347291224838,
+      "price": 162.68,
+      "currency": "USD",
+      "upside": 19.723794423919717,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 44,
+        "position": 40,
+        "analyst": 77
+      }
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron",
+      "region": "US",
+      "score": 82.5,
+      "verdict": "BUY",
+      "ret_1d": 0.8734052881823384,
+      "ret_1w": -2.7053629943034396,
+      "ret_1m": -7.30842907884205,
+      "price": 868.52,
+      "currency": "USD",
+      "upside": 72.9351847077323,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 48,
+        "position": 85,
+        "analyst": 94
+      }
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir",
+      "region": "US",
+      "score": 78.4,
+      "verdict": "BUY",
+      "ret_1d": 1.8719849564178492,
+      "ret_1w": 39.45880907247634,
+      "ret_1m": 38.2049013819981,
+      "price": 175.23,
+      "currency": "USD",
+      "upside": 9.387664597126765,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 82,
+        "position": 85,
+        "analyst": 77
+      }
+    },
+    {
+      "symbol": "NOW",
+      "name": "ServiceNow",
+      "region": "US",
+      "score": 82.6,
+      "verdict": "BUY",
+      "ret_1d": 2.049972168715919,
+      "ret_1w": 11.603467656285327,
+      "ret_1m": 18.317708220812577,
+      "price": 127.44,
+      "currency": "USD",
+      "upside": 10.053999774901756,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 82,
+        "position": 60,
+        "analyst": 83
+      }
+    },
+    {
+      "symbol": "PANW",
+      "name": "Palo Alto Networks",
+      "region": "US",
+      "score": 68.3,
+      "verdict": "ACCUMULATE",
+      "ret_1d": 5.82092674271264,
+      "ret_1w": 10.920981513801253,
+      "ret_1m": 18.1430469204364,
+      "price": 385.04,
+      "currency": "USD",
+      "upside": -11.853108126969413,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 96,
+        "position": 55,
+        "analyst": 59
+      }
+    },
+    {
+      "symbol": "SNOW",
+      "name": "Snowflake",
+      "region": "US",
+      "score": 67.9,
+      "verdict": "ACCUMULATE",
+      "ret_1d": 1.2738727637925162,
+      "ret_1w": 8.834914816630079,
+      "ret_1m": 28.016827913550223,
+      "price": 334.7,
+      "currency": "USD",
+      "upside": -9.186092347081587,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 82,
+        "position": 55,
+        "analyst": 63
+      }
+    },
+    {
+      "symbol": "ARM",
+      "name": "Arm Holdings",
+      "region": "US",
+      "score": 66.8,
+      "verdict": "ACCUMULATE",
+      "ret_1d": -5.209328958898851,
+      "ret_1w": 12.043005454254407,
+      "ret_1m": -17.17431152143034,
+      "price": 267.85,
+      "currency": "USD",
+      "upside": 7.446232384544493,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 44,
+        "position": 60,
+        "analyst": 74
+      }
+    },
+    {
+      "symbol": "TSM",
+      "name": "TSMC (ADR)",
+      "region": "US",
+      "score": 87.6,
+      "verdict": "BUY",
+      "ret_1d": 0.8578861871623822,
+      "ret_1w": 1.1721801599976267,
+      "ret_1m": 0.11386000322997081,
+      "price": 422.06,
+      "currency": "USD",
+      "upside": 29.624639426779154,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 69,
+        "position": 85,
+        "analyst": 94
+      }
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML (ADR)",
+      "region": "US",
+      "score": 89.6,
+      "verdict": "BUY",
+      "ret_1d": 3.8016028541755897,
+      "ret_1w": 5.1107249581301195,
+      "ret_1m": 4.249030390983699,
+      "price": 1799.38,
+      "currency": "USD",
+      "upside": 20.73981005149006,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 75,
+        "position": 85,
+        "analyst": 94
+      }
+    },
+    {
+      "symbol": "SAP",
+      "name": "SAP (ADR)",
+      "region": "US",
+      "score": 85.9,
+      "verdict": "BUY",
+      "ret_1d": 0.5418315068271617,
+      "ret_1w": 7.258676548102816,
+      "ret_1m": 31.07457090438823,
+      "price": 209.68,
+      "currency": "USD",
+      "upside": 15.851143878858842,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 82,
+        "position": 60,
+        "analyst": 87
+      }
+    },
+    {
+      "symbol": "SPOT",
+      "name": "Spotify",
+      "region": "US",
+      "score": 84.6,
+      "verdict": "BUY",
+      "ret_1d": 4.851065670745269,
+      "ret_1w": 5.24130147343187,
+      "ret_1m": 6.680288272394108,
+      "price": 511.82,
+      "currency": "USD",
+      "upside": 18.853911784392842,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 69,
+        "position": 40,
+        "analyst": 90
+      }
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "region": "US",
+      "score": 70.0,
+      "verdict": "ACCUMULATE",
+      "ret_1d": 0.19483433956799523,
+      "ret_1w": -3.12314248147606,
+      "ret_1m": -5.246318384421,
+      "price": 97.71,
+      "currency": "USD",
+      "upside": 16.72295677886664,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 61,
+        "position": 85,
+        "analyst": 73
+      }
+    },
+    {
+      "symbol": "OXY",
+      "name": "Occidental",
+      "region": "US",
+      "score": 74.2,
+      "verdict": "BUY",
+      "ret_1d": 0.6990619552349031,
+      "ret_1w": 7.206391740256035,
+      "ret_1m": 7.754059283915704,
+      "price": 59.06,
+      "currency": "USD",
+      "upside": 11.897999429926909,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 81,
+        "position": 85,
+        "analyst": 72
+      }
+    },
+    {
+      "symbol": "LHA.DE",
+      "name": "Lufthansa",
+      "region": "EU",
+      "score": 57.1,
+      "verdict": "HOLD",
+      "ret_1d": 0.7767006247261454,
+      "ret_1w": -4.28768736716737,
+      "ret_1m": -8.927397751428835,
+      "price": 8.3,
+      "currency": "EUR",
+      "upside": 16.684370372471612,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 23,
+        "position": 60,
+        "analyst": 68
+      }
+    },
+    {
+      "symbol": "7CD.F",
+      "name": "CD Projekt",
+      "region": "EU",
+      "score": 95.2,
+      "verdict": "BUY",
+      "ret_1d": -0.5921062744555505,
+      "ret_1w": 2.6145960287512926,
+      "ret_1m": 12.67710535875366,
+      "price": 60.44,
+      "currency": "EUR",
+      "upside": null,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 96,
+        "position": 60
+      }
+    },
+    {
+      "symbol": "DIVIO-B.ST",
+      "name": "Divio Technologies",
+      "region": "EU",
+      "score": 68.6,
+      "verdict": "ACCUMULATE",
+      "ret_1d": -12.218646994897487,
+      "ret_1w": 0.73800611195034,
+      "ret_1m": 0.73800611195034,
+      "price": 0.05,
+      "currency": "SEK",
+      "upside": null,
+      "breakdown": {
+        "trend": 0,
+        "momentum": 70,
+        "position": 25
+      }
+    },
+    {
+      "symbol": "1810.HK",
+      "name": "Xiaomi",
+      "region": "HK",
+      "score": 77.9,
+      "verdict": "BUY",
+      "ret_1d": -1.125278465032209,
+      "ret_1w": -4.630965295086986,
+      "ret_1m": 1.2288774330780017,
+      "price": 26.36,
+      "currency": "HKD",
+      "upside": 45.60256112030536,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 48,
+        "position": 25,
+        "analyst": 88
+      }
+    },
+    {
+      "symbol": "ASML.AS",
+      "name": "ASML",
+      "region": "EU",
+      "score": 89.1,
+      "verdict": "BUY",
+      "ret_1d": 1.904760333715405,
+      "ret_1w": 8.036561797906261,
+      "ret_1m": 2.777772936233003,
+      "price": 1583.6,
+      "currency": "EUR",
+      "upside": 26.36643917979169,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 73,
+        "position": 85,
+        "analyst": 94
+      }
+    },
+    {
+      "symbol": "ADYEN.AS",
+      "name": "Adyen",
+      "region": "EU",
+      "score": 88.5,
+      "verdict": "BUY",
+      "ret_1d": -1.1829228638778888,
+      "ret_1w": -2.638266974036907,
+      "ret_1m": 8.913122095413485,
+      "price": 918.9,
+      "currency": "EUR",
+      "upside": 44.45019748980723,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 80,
+        "position": 40,
+        "analyst": 92
+      }
+    },
+    {
+      "symbol": "SAP.DE",
+      "name": "SAP",
+      "region": "EU",
+      "score": 85.4,
+      "verdict": "BUY",
+      "ret_1d": -0.9186517377666847,
+      "ret_1w": 5.778092341189267,
+      "ret_1m": 27.23137559196662,
+      "price": 179.04,
+      "currency": "EUR",
+      "upside": 12.537811414007582,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 82,
+        "position": 60,
+        "analyst": 87
+      }
+    },
+    {
+      "symbol": "IFX.DE",
+      "name": "Infineon",
+      "region": "EU",
+      "score": 80.4,
+      "verdict": "BUY",
+      "ret_1d": 3.134449114607829,
+      "ret_1w": 7.889476896319736,
+      "ret_1m": -7.886887644078399,
+      "price": 64.82,
+      "currency": "EUR",
+      "upside": 31.26652329619506,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 47,
+        "position": 85,
+        "analyst": 91
+      }
+    },
+    {
+      "symbol": "STMPA.PA",
+      "name": "STMicroelectronics",
+      "region": "EU",
+      "score": 75.1,
+      "verdict": "BUY",
+      "ret_1d": 1.4867533631921726,
+      "ret_1w": 4.982127567308159,
+      "ret_1m": -21.27193133297206,
+      "price": 48.47,
+      "currency": "EUR",
+      "upside": 34.42556441737927,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 38,
+        "position": 85,
+        "analyst": 87
+      }
+    },
+    {
+      "symbol": "CAP.PA",
+      "name": "Capgemini",
+      "region": "EU",
+      "score": 86.6,
+      "verdict": "BUY",
+      "ret_1d": -1.963471713131426,
+      "ret_1w": -1.5137628677788117,
+      "ret_1m": 17.168735271759083,
+      "price": 107.35,
+      "currency": "EUR",
+      "upside": 30.065479259098016,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 82,
+        "position": 40,
+        "analyst": 89
+      }
+    },
+    {
+      "symbol": "DSY.PA",
+      "name": "Dassault Syst\u00e8mes",
+      "region": "EU",
+      "score": 70.2,
+      "verdict": "ACCUMULATE",
+      "ret_1d": -1.6289620096722413,
+      "ret_1w": 1.6362804649686202,
+      "ret_1m": 16.5058946885962,
+      "price": 21.74,
+      "currency": "EUR",
+      "upside": 8.107774827226578,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 82,
+        "position": 60,
+        "analyst": 66
+      }
+    },
+    {
+      "symbol": "NOKIA.HE",
+      "name": "Nokia",
+      "region": "EU",
+      "score": 67.9,
+      "verdict": "ACCUMULATE",
+      "ret_1d": 8.294820604375719,
+      "ret_1w": 5.347854187569201,
+      "ret_1m": -15.68181885914366,
+      "price": 8.9,
+      "currency": "EUR",
+      "upside": 15.954061912354733,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 54,
+        "position": 60,
+        "analyst": 72
+      }
+    },
+    {
+      "symbol": "ERIC-B.ST",
+      "name": "Ericsson",
+      "region": "EU",
+      "score": 50.7,
+      "verdict": "HOLD",
+      "ret_1d": 1.8711051027644476,
+      "ret_1w": 1.7230680145422506,
+      "ret_1m": -13.082039911308208,
+      "price": 98.0,
+      "currency": "SEK",
+      "upside": -1.1815204081632613,
+      "breakdown": {
+        "trend": 33,
+        "momentum": 66,
+        "position": 60,
+        "analyst": 46
+      }
+    },
+    {
+      "symbol": "LOGN.SW",
+      "name": "Logitech",
+      "region": "CH",
+      "score": 63.4,
+      "verdict": "ACCUMULATE",
+      "ret_1d": -0.1417801836571253,
+      "ret_1w": -0.40066458265342053,
+      "ret_1m": 3.173826333295393,
+      "price": 84.52,
+      "currency": "CHF",
+      "upside": 7.6801864821963495,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 51,
+        "position": 60,
+        "analyst": 67
+      }
+    },
+    {
+      "symbol": "TEMN.SW",
+      "name": "Temenos",
+      "region": "CH",
+      "score": 73.7,
+      "verdict": "BUY",
+      "ret_1d": 1.1180927858026601,
+      "ret_1w": 4.779138706032637,
+      "ret_1m": 3.062680369436599,
+      "price": 72.35,
+      "currency": "CHF",
+      "upside": 11.486222116302347,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 86,
+        "position": 60,
+        "analyst": 70
+      }
+    },
+    {
+      "symbol": "VACN.SW",
+      "name": "VAT Group",
+      "region": "CH",
+      "score": 66.7,
+      "verdict": "ACCUMULATE",
+      "ret_1d": 1.8066599705328867,
+      "ret_1w": 1.935895266695642,
+      "ret_1m": -7.965612548128586,
+      "price": 642.4,
+      "currency": "CHF",
+      "upside": 8.957726245173214,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 57,
+        "position": 85,
+        "analyst": 70
+      }
+    },
+    {
+      "symbol": "AMS.SW",
+      "name": "ams-OSRAM",
+      "region": "CH",
+      "score": 44.1,
+      "verdict": "REDUCE",
+      "ret_1d": 7.6602359168547185,
+      "ret_1w": 11.434729380780428,
+      "ret_1m": 7.046635565352988,
+      "price": 20.66,
+      "currency": "CHF",
+      "upside": -17.227162989829026,
+      "breakdown": {
+        "trend": 100,
+        "momentum": 78,
+        "position": 85,
+        "analyst": 33
+      }
+    },
+    {
+      "symbol": "COTN.SW",
+      "name": "Comet Holding",
+      "region": "CH",
+      "score": 84.2,
+      "verdict": "BUY",
+      "ret_1d": 1.7837303879049582,
+      "ret_1w": -0.5987974213393588,
+      "ret_1m": -6.789172132387411,
+      "price": 365.2,
+      "currency": "CHF",
+      "upside": 37.13033495631357,
+      "breakdown": {
+        "trend": 67,
+        "momentum": 59,
+        "position": 85,
+        "analyst": 92
+      }
+    }
+  ]
+}
