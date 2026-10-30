@@ -1,0 +1,21 @@
+{
+  "lenses": {
+    "trend": 0.52,
+    "momentum": 4.51,
+    "analyst": 94.45,
+    "position": 0.52
+  },
+  "thresholds": {
+    "BUY": 72.0,
+    "ACCUMULATE": 58.0,
+    "HOLD": 45.0,
+    "REDUCE": 32.0
+  },
+  "_meta": {
+    "tuned_at": "2026-10-26 09:06:22",
+    "objective": 0.005332,
+    "prev_objective": 0.005005,
+    "samples": 213,
+    "candidates_tried": 7353
+  }
+}
